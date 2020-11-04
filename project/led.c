@@ -7,23 +7,13 @@
 void led_init()
 {
   P1DIR |= LEDS;
- switch_state_changed = 1;
-}
-
-//makes green led blink
-void greenLight(){
-  for(int i = 0; i < 10; i++){
-    P1OUT = LED_GREEN;         // will turn green led on
-    __delay_cycles(700000);    // delays program
-
-    P1OUT = !LED_GREEN;        // will turn green led off
-    __delay_cycles(700000);
-  }
+  switch_state_changed = 1;
 }
 
 //makes red led blink
-void redLight(){
-   for(int i = 0; i < 10; i++){
+void redLight()
+{
+  for(int i = 0; i < 10; i++){
     P1OUT = LED_RED;           // will turn re led on
     __delay_cycles(850000);    // delays program
 
@@ -32,8 +22,38 @@ void redLight(){
   }
 }
 
+//makes green led blink
+void greenLight()
+{
+    for(int i = 0; i < 10; i++){
+    P1OUT = LED_GREEN;         // will turn green led on
+    __delay_cycles(700000);    // delays program
+
+    P1OUT = !LED_GREEN;        // will turn green led off
+    __delay_cycles(700000);
+  }
+}
+ 
 // red and green take turns blinking
-void redThenDrink()
+
+void bothLights()
+{
+  for(int i = 0; i < 10; i++){
+    P1OUT = LED_RED;
+    __delay_cycles(850000);
+
+    P1OUT = LED_GREEN;
+    __delay_cycles(850000);
+
+    P1OUT = !LED_RED;
+    __delay_cycles(850000);
+
+    P1OUT = !LED_GREEN;
+    __delay_cycles(850000);
+  }
+ }
+
+void redThenGreen()
 {
   for(int i = 0; i < 10; i++){
     P1OUT = LED_RED;

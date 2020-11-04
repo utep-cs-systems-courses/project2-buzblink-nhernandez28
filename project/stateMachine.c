@@ -4,36 +4,33 @@
 #include "buzzer.h"
 #include "led.h"
 
-// this method is used as a state machine for our project
-// each case is dictated by which button is pressed from our switches.c file
-
-void state_advance(){
+void state_advance()
+{
   switch(state){
   case 0:
     beep();
     break;
 
   case 1:
-    marioSong();
-    greenLight();
+    beep1();
+    redLight();
     state = 0;
     break;
 
   case 2:
-    randomSong();
+    beep2();
     dimAndBlinking();
     state = 0;
-    break;
 
   case 3:
-    nokiaSong();
+    beep3();
     redLight();
     greenLight();
     state = 0;
     break;
 
   case 4:
-    spongebobSong();
+    beep4();
     redThenGreen();
     state = 0;
     break;
