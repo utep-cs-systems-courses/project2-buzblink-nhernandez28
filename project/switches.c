@@ -12,8 +12,8 @@ static char switch_update_interrupt_sense()
   char p2val = P2IN;
 
   //update switch interrupt to detect changes from current buttons
-  P2IES |= (p2val & SWITCHES); // if switch up, sense down
-  P2IES &= (p2val | ~SWITCHES); // if switch down, sense up
+  P2IES |= (p2val & SWITCHES); //switch up then sense down
+  P2IES &= (p2val | ~SWITCHES); //switch down then sense up
   return p2val;
 }
 
@@ -24,8 +24,8 @@ void switch_init()
   P2IE |= SWITCHES;
   P2OUT |= SWITCHES;
   P2DIR &= ~SWITCHES;
+  
   switch_update_interrupt_sense();
-  //  switch_interrupt_handler();
   led_update();
 }
 
@@ -54,10 +54,8 @@ void switch_interrupt_handler()
   }else if(s_4){
     switch_state_down = s_4;
     switch_state_changed = 4;
-    //led_update();
     state_four();
     tune4();
-    //buzzer_set_period(0)
   }
 
   switch_state_changed = 1;
