@@ -1,17 +1,35 @@
 #include <msp430.h>
 #include "led.h"
 #include "switches.h"
-#include "buzzer.h"
 #include "stateMachine.h"
+
+unsigned char red_on = 0;
+unsigned char green_on = 0;
+unsigned char led_changed = 0;
+
+static char redVal[] = {0, LED_RED};
+static char greenVal[] = {0, LED_GREEN};
 
 void led_init()
 {
   P1DIR |= LEDS;
-  switch_state_changed = 1;
+  led_changed = 1;
+  led_update();
+}
+
+void led_update()
+{
+  if(led_changed){
+    char ledFlags = redVal[red_on] | greenVal[green_on];
+
+    P1OUT &= (0xff - LEDS) | ledFlags;
+    P1OUT |= ledFlags;
+    led_changed = 0;
+  }
 }
 
 //makes red led blink
-void redLight()
+/*void redLight()
 {
   for(int i = 0; i < 10; i++){
     P1OUT = LED_RED;           // will turn re led on
@@ -92,16 +110,4 @@ void dimAndBlinking()
     P1OUT = !LED_RED;
     P1OUT = !LED_GREEN;
   }
-}
-
-void led_update(){
-  if (switch_state_changed) {
-    char ledFlags = 0;
-    ledFlags |= switch_state_down ? LED_RED : 0;
-    ledFlags |= switch_state_down ? 0 : LED_GREEN;
-    
-    P1OUT &= (0xff - LEDS) | ledFlags;
-    P1OUT |= ledFlags;
-  }
-  switch_state_changed = 0;
-}
+}*/

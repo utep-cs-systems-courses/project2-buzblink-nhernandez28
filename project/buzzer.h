@@ -2,12 +2,11 @@
 #define buzzer_included
 
 void buzzer_init();
-void buzzer_advance_frequency();
 void buzzer_set_period(short cycles);
-void beep();
-void beep1();
-void beep2();
-void beep3();
-void beef4();
 
-#endif // included
+void tune1();
+void tune2();
+void tune3();
+void tune4();
+
+#endif //included
