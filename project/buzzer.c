@@ -2,7 +2,7 @@
 #include "libTimer.h"
 #include "buzzer.h"
 
-//notes
+//MUSIC NOTES
 #define A3 2273
 #define B3 2025
 #define C3 3846
@@ -11,27 +11,32 @@
 #define F4 1432
 #define G4 1276
 
+//initiates sound
 void buzzer_init()
 {
-  timerAUpmode(); // used to drive speaker
+  timerAUpmode();             //msp430 speaker
   P2SEL2 &= ~(BIT6 | BIT7);
+  //sets function of the pins to I/O mode
   P2SEL &= ~BIT7;
   P2SEL |= BIT6;
-  P2DIR = BIT6; // enable output to speaker (P2.6)
+  //pin2 direction stored here
+  P2DIR = BIT6;               //SPEAKER OUTPUT
 }
 
 void buzzer_set_period(short cycles)
 {
-  // buzzer clock = 2MHz. (period of 1k results in 2kHz tone)
+  // BUZZER CLOCK = 2MHZ. (PERIOD OF 1K RESULTS IN 2KHZ TONE)
   CCR0 = cycles;
-  CCR1 = cycles >> 1; // one half cycle
+  CCR1 = cycles >> 1; // ONE HALF CYCLE
 }
 
+//song for button1
 void tune1()
 {
   int i = 0;
   int notes[] = {A3, B3, C3, D4};
-  
+
+  //while loop will traverse through notes[]
   while(i < sizeof(notes)){
     int t1 = 0;
     
@@ -58,6 +63,7 @@ void tune1()
   }
 }
 
+//song for button2
 void tune2()
 {
   int i = 0;
