@@ -3,28 +3,35 @@
 #include "switches.h"
 #include "stateMachine.h"
 
-unsigned char red_on = 0;
-unsigned char green_on = 0;
-unsigned char led_changed = 0;
+//red and green led are off
+unsigned char r_on, g_on;
+
+//change in led status will be 1
+unsigned char changed_led = 0;
 
 static char redVal[] = {0, LED_RED};
 static char greenVal[] = {0, LED_GREEN};
 
 void led_init()
 {
+  //bits attached to the OUTPUT
   P1DIR |= LEDS;
-  led_changed = 1;
+  changed_led = 1;
   led_update();
 }
 
+//removes the old to get new info
 void led_update()
 {
-  if(led_changed){
-    char ledFlags = redVal[red_on] | greenVal[green_on];
+  //this is if it equals to one
+  if(changed_led){
+    char ledFlags = redVal[r_on] | greenVal[g_on];
 
+    //this is going to CLEAR bits
     P1OUT &= (0xff - LEDS) | ledFlags;
+    //this is going to SET the bits
     P1OUT |= ledFlags;
-    led_changed = 0;
+    changed_led = 0;
   }
 }
 
