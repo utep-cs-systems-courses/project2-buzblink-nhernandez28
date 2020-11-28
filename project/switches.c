@@ -17,6 +17,7 @@ static char switch_update_interrupt_sense()
   return p2val;
 }
 
+//will enable resistors and interrupts for and from switches
 void switch_init()
 {
   //set up switch
@@ -42,19 +43,20 @@ void switch_interrupt_handler()
     switch_state_changed = 1;
     led_update();
     tune1();
-  }else if(s_2){
+  }if(s_2){
     switch_state_down = s_2;
     switch_state_changed = 2;
     led_update();
     tune2();
-  }else if(s_3){
+  }if(s_3){
     switch_state_down = s_3;
     switch_state_changed = 3;
+    led_update();
     tune3();
-  }else if(s_4){
+  }if(s_4){
     switch_state_down = s_4;
     switch_state_changed = 4;
-    state_four();
+    led_update();
     tune4();
   }
 
